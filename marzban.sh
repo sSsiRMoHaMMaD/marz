@@ -76,11 +76,12 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
 
 # Get license key from the user
 read -p "Enter the license key: " LICENSE
+
 # Install WireGuard and configure Warp
 wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
   mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
   chmod +x /usr/bin/wgcf && \
-  echo -e "wgcf register\n" | wgcf && \
+  echo -e "wgcf register\n" | wgcf register && \
   wgcf generate && \
   sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
   wgcf update && \
