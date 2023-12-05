@@ -8,8 +8,7 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   sed -i '16s/^/DNS=8.8.8.8\n/' /etc/systemd/resolved.conf && \
   service systemd-resolved restart && \
   apt update && \
-  ufw disable && \
-  wget https://github.com/sSsiRMoHaMMaD/backup/blob/main/cache.zip && \
+  git clone https://github.com/sSsiRMoHaMMaD/backup && \
   sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=10M/' /etc/systemd/journald.conf && \
   sudo systemctl restart systemd-journald && \
   sudo echo '
@@ -52,8 +51,8 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   root       soft    nofile  unlimited
   root       hard    nproc   unlimited
   root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
-  wget https://github.com/sSsiRMoHaMMaD/backup/blob/main/marzban.zip && \
   apt install unzip -y && \
+  unzip /root/backup/marzban.zip -d /root/ && \
   unzip marzban.zip && \
   curl -fsSL https://get.docker.com | sh && \
   cd marzban && \
@@ -64,13 +63,12 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   docker compose up -d && \
   cd /var/lib/marzban/ && \
   rm -rf db.sqlite3 && \
-  wget https://github.com/sSsiRMoHaMMaD/backup/blob/main/$SERVER/db.sqlite3 && \
-  wget https://github.com/sSsiRMoHaMMaD/backup/blob/main/$SERVER/certs.zip && \
-  unzip certs.zip && \
+  mv /root/backup/$SERVER/db.sqlite3 /var/lib/marzban/db.sqlite3 && \
+  unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/ && \
   cd && \
   cd marzban/ && \
   docker compose down && \
   rm -rf xray_config.json && \
-  wget https://github.com/sSsiRMoHaMMaD/backup/blob/main/$SERVER/xray_config.json && \
+  mv /root/backup/$SERVER/xray_config.json /root/marzban/xray_config.json && \
   docker compose up -d && \
   reboot
