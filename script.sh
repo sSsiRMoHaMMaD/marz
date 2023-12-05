@@ -55,7 +55,6 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
   apt install unzip -y && \
   unzip /root/backup/marzban.zip -d /root/ && \
-  unzip marzban.zip && \
   curl -fsSL https://get.docker.com | sh && \
   cd marzban && \
   sed -i 's/2083/8880/g' xray_config.json && \
