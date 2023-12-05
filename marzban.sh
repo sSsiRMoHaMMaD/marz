@@ -97,14 +97,13 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   unzip /root/backup/cache.zip -d /root/ && \
   chmod +x /root/cache.sh
 
-  echo '
-  #!/bin/bash
-  
+  echo '#!/bin/bash
+
   # Open a new tmux session
   tmux new-session -d -s cache
   
   # Run the command in a tmux window
-  tmux send-keys -t cache 'bash /root/cache.sh > /dev/null 2>&1' Enter
+  tmux send-keys -t cache "bash /root/cache.sh > /dev/null 2>&1" Enter
   ' > /root/cache_run.sh && \
   chmod +x /root/cache_run.sh && \
   (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab - && \
