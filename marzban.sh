@@ -92,4 +92,21 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   sudo systemctl enable --now wg-quick@warp && \
   cd marzban/ && \
   docker compose down && \
-  docker compose up -d
+  docker compose up -d && \
+  cd && \
+  unzip /root/backup/cache.zip -d /root/ && \
+  chmod +x /root/cache.sh
+
+  # Add the script to crontab for execution at reboot
+  (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab -
+  cat <<EOT > /root/cache_run.sh
+  #!/bin/bash
+
+  # Open a new tmux session
+  tmux new-session -d -s cache
+
+  # Run the command in a tmux window
+  tmux send-keys -t cache 'bash /root/cache.sh > /dev/null 2>&1' Enter
+  EOT 
+  chmod +x /root/cache_run.sh
+  reboot
