@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get server name from the user
+read -p "Enter the server name: " SERVER
+
 # Update the root password and set DNS
 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   sed -i '16s/^/DNS=8.8.8.8\n/' /etc/systemd/resolved.conf && \
@@ -60,9 +63,7 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   sed -i 's/SUDO_PASSWORD = "M80b81M"/SUDO_PASSWORD = "80MinE84"/g' env && \
   docker compose up -d && \
   cd /var/lib/marzban/ && \
-  rm -rf db.sqlite3
-  # Get server name from the user
-  read -p "Enter the server name: " SERVER
+  rm -rf db.sqlite3 && \
   mv /root/backup/$SERVER/db.sqlite3 /var/lib/marzban/db.sqlite3 && \
   unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/ && \
   cd && \
@@ -71,6 +72,7 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   rm -rf xray_config.json && \
   mv /root/backup/$SERVER/xray_config.json /root/marzban/xray_config.json && \
   docker compose up -d && \
+  cd && \
 
 # Get license key from the user
 read -p "Enter the license key: " LICENSE
