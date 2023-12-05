@@ -86,7 +86,7 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
   wgcf update && \
   wgcf generate && \
-  sudo apt install wireguard-dkms wireguard-tools resolvconf && \
+  sudo apt install wireguard-dkms wireguard-tools resolvconf -y && \
   sed -i '7i\Table = off' wgcf-profile.conf && \
   mv /root/wgcf-profile.conf /etc/wireguard/warp.conf && \
   sudo systemctl enable --now wg-quick@warp && \
