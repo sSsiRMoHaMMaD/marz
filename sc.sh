@@ -70,4 +70,24 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   docker compose down && \
   rm -rf xray_config.json && \
   mv /root/backup/$SERVER/xray_config.json /root/marzban/xray_config.json && \
+  docker compose up -d && \
+
+# Get license key from the user
+read -p "Enter the license key: " LICENSE
+
+# Install WireGuard and configure Warp
+wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
+  mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
+  chmod +x /usr/bin/wgcf && \
+  wgcf register && \
+  wgcf generate && \
+  sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
+  wgcf update && \
+  wgcf generate && \
+  sudo apt install wireguard-dkms wireguard-tools resolvconf && \
+  sed -i '7i\Table = off' wgcf-profile.conf && \
+  mv /root/wgcf-profile.conf /etc/wireguard/warp.conf && \
+  sudo systemctl enable --now wg-quick@warp && \
+  cd marzban/ && \
+  docker compose down && \
   docker compose up -d
