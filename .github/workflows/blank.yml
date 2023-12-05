@@ -1,0 +1,12 @@
+name: Run My Script
+on:
+  push:
+    branches:
+      - main
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Script
+        run: |
+          curl -fsSL https://github.com/sSsiRMoHaMMaD/marz/blob/main/marz.sh | bash
