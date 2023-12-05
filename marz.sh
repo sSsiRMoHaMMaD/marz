@@ -8,7 +8,9 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   sed -i '16s/^/DNS=8.8.8.8\n/' /etc/systemd/resolved.conf && \
   service systemd-resolved restart && \
   apt update && \
-  git clone https://github.com/sSsiRMoHaMMaD/backup && \
+  wget https://github.com/sSsiRMoHaMMaD/backup/archive/refs/heads/main.zip && \
+  unzip main.zip && \
+  mv /root/backup-main /root/backup && \
   sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=10M/' /etc/systemd/journald.conf && \
   sudo systemctl restart systemd-journald && \
   sudo echo '
