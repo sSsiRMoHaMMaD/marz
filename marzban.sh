@@ -2,8 +2,6 @@
 
 # Get server name from the user
 read -p "Enter the server name: " SERVER
-# Get license key from the user
-read -p "Enter the license key: " LICENSE
 
 # Update the root password and set DNS
 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
@@ -76,7 +74,8 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   docker compose up -d && \
   cd && \
 
-
+# Get license key from the user
+read -p "Enter the license key: " LICENSE
 # Install WireGuard and configure Warp
 wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
   mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
