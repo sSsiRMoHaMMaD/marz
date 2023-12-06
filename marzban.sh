@@ -30,8 +30,6 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   net.ipv4.tcp_keepalive_time = 90
   net.ipv4.tcp_congestion_control=bbr
   net.core.default_qdisc=cake
-  net.ipv6.conf.all.disable_ipv6=1
-  net.ipv6.conf.default.disable_ipv6=1
   ' > /etc/sysctl.conf && \
   sudo mkdir /etc/systemd/system.conf.d && \
   sudo echo '[Manager]
