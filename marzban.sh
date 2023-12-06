@@ -5,6 +5,7 @@ read -p "Enter the server name: " SERVER
 
 # Update the root password and set DNS
 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
+  ufw disable && \
   sed -i '16s/^/DNS=8.8.8.8\n/' /etc/systemd/resolved.conf && \
   service systemd-resolved restart && \
   apt update && \
