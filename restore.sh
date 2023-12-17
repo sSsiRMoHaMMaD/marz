@@ -95,6 +95,7 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   docker compose down && \
   docker compose up -d && \
   cd && \
+
   wget https://github.com/wangyu-/udp2raw/releases/download/20230206.0/udp2raw_binaries.tar.gz && \
   tar -zxvf udp2raw_binaries.tar.gz && \
   mv udp2raw_amd64 /usr/local/bin/udp2raw && chmod +x /usr/local/bin/udp2raw && \
@@ -116,6 +117,9 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   WantedBy=multi-user.target' > /etc/systemd/system/udp2raw.service && \
   systemctl enable udp2raw.service && \
   systemctl start udp2raw.service && \
+
+  read -p "Enter the server name: " S_NAME
+  
   mv /root/backup/$S_NAME/wg0.conf /etc/wireguard/wg0.conf && \
   mv /root/backup/$S_NAME/privatekey /etc/wireguard/privatekey && \
   mv /root/backup/$S_NAME/publickey /etc/wireguard/publickey && \
