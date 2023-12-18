@@ -66,271 +66,271 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   docker compose down && \
   
   echo '{
-  "log": {
-    "loglevel": "info"
-  },
-  "inbounds": [
-    {
-      "tag": "VLESS TCP HTTP",
-      "listen": "0.0.0.0",
-      "port": $PORT_VTH,
-      "protocol": "vless",
-      "settings": {
-        "clients": [],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "tcp",
-        "tcpSettings": {
-          "header": {
-            "type": "http",
-            "request": {
-              "method": "GET",
-              "path": [
-                "/"
-              ],
-              "headers": {
-                "Host": [
-                  ""
-                ]
-              }
-            },
-            "response": {}
-          }
+    "log": {
+      "loglevel": "info"
+    },
+    "inbounds": [
+      {
+        "tag": "VLESS TCP HTTP",
+        "listen": "0.0.0.0",
+        "port": $PORT_VTH,
+        "protocol": "vless",
+        "settings": {
+          "clients": [],
+          "decryption": "none"
         },
-        "security": "none"
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      }
-    },
-    {
-      "tag": "VLESS TCP",
-      "listen": "0.0.0.0",
-      "port": $PORT_VT,
-      "protocol": "vless",
-      "settings": {
-        "clients": [],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "tcp"
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      }
-    },
-    {
-      "tag": "VLESS WS HTTP",
-      "listen": "0.0.0.0",
-      "port": $PORT_VWH,
-      "protocol": "vless",
-      "settings": {
-        "clients": [],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "none",
-        "wsSettings": {
-          "path": "/",
-          "headers": {
-            "Host": ""
-          }
-        }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      }
-    },
-    {
-      "tag": "VLESS WS",
-      "listen": "0.0.0.0",
-      "port": 8880,
-      "protocol": "vless",
-      "settings": {
-        "clients": [],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/"
-        }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      }
-    },
-    {
-      "tag": "SHADOWSOCKS",
-      "listen": "0.0.0.0",
-      "port": $PORT_SH,
-      "protocol": "shadowsocks",
-      "settings": {
-        "clients": [],
-        "network": "tcp,udp"
-      }
-    },
-    {
-      "tag": "VLESS TCP HTTP TLS",
-      "listen": "0.0.0.0",
-      "port": $PORT_VTHT,
-      "protocol": "vless",
-      "settings": {
-        "clients": [],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "tcp",
-        "security": "tls",
-        "tlsSettings": {
-          "alpn": [
-            "h2",
-            "http/1.1"
-          ],
-          "certificates": [
-            {
-              "certificateFile": "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer",
-              "keyFile": "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer.key"
+        "streamSettings": {
+          "network": "tcp",
+          "tcpSettings": {
+            "header": {
+              "type": "http",
+              "request": {
+                "method": "GET",
+                "path": [
+                  "/"
+                ],
+                "headers": {
+                  "Host": [
+                    ""
+                  ]
+                }
+              },
+              "response": {}
             }
-          ]
+          },
+          "security": "none"
         },
-        "tcpSettings": {
-          "header": {
-            "type": "http",
-            "request": {
-              "method": "GET",
-              "path": [
-                "/"
-              ],
-              "headers": {
-                "Host": [
-                  ""
-                ]
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ]
+        }
+      },
+      {
+        "tag": "VLESS TCP",
+        "listen": "0.0.0.0",
+        "port": $PORT_VT,
+        "protocol": "vless",
+        "settings": {
+          "clients": [],
+          "decryption": "none"
+        },
+        "streamSettings": {
+          "network": "tcp"
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ]
+        }
+      },
+      {
+        "tag": "VLESS WS HTTP",
+        "listen": "0.0.0.0",
+        "port": $PORT_VWH,
+        "protocol": "vless",
+        "settings": {
+          "clients": [],
+          "decryption": "none"
+        },
+        "streamSettings": {
+          "network": "ws",
+          "security": "none",
+          "wsSettings": {
+            "path": "/",
+            "headers": {
+              "Host": ""
+            }
+          }
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ]
+        }
+      },
+      {
+        "tag": "VLESS WS",
+        "listen": "0.0.0.0",
+        "port": 8880,
+        "protocol": "vless",
+        "settings": {
+          "clients": [],
+          "decryption": "none"
+        },
+        "streamSettings": {
+          "network": "ws",
+          "wsSettings": {
+            "path": "/"
+          }
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ]
+        }
+      },
+      {
+        "tag": "SHADOWSOCKS",
+        "listen": "0.0.0.0",
+        "port": $PORT_SH,
+        "protocol": "shadowsocks",
+        "settings": {
+          "clients": [],
+          "network": "tcp,udp"
+        }
+      },
+      {
+        "tag": "VLESS TCP HTTP TLS",
+        "listen": "0.0.0.0",
+        "port": $PORT_VTHT,
+        "protocol": "vless",
+        "settings": {
+          "clients": [],
+          "decryption": "none"
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "tls",
+          "tlsSettings": {
+            "alpn": [
+              "h2",
+              "http/1.1"
+            ],
+            "certificates": [
+              {
+                "certificateFile": "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer",
+                "keyFile": "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer.key"
               }
-            },
-            "response": {}
+            ]
+          },
+          "tcpSettings": {
+            "header": {
+              "type": "http",
+              "request": {
+                "method": "GET",
+                "path": [
+                  "/"
+                ],
+                "headers": {
+                  "Host": [
+                    ""
+                  ]
+                }
+              },
+              "response": {}
+            }
+          }
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls"
+          ]
+        }
+      }
+    ],
+    "outbounds": [
+      {
+        "protocol": "freedom",
+        "settings": {},
+        "tag": "DIRECT"
+      },
+      {
+        "protocol": "blackhole",
+        "settings": {},
+        "tag": "BLOCK"
+      },
+      {
+        "tag": "warp",
+        "protocol": "freedom",
+        "streamSettings": {
+          "sockopt": {
+            "tcpFastOpen": true,
+            "interface": "warp"
           }
         }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
       }
-    }
-  ],
-  "outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {},
-      "tag": "DIRECT"
-    },
-    {
-      "protocol": "blackhole",
-      "settings": {},
-      "tag": "BLOCK"
-    },
-    {
-      "tag": "warp",
-      "protocol": "freedom",
-      "streamSettings": {
-        "sockopt": {
-          "tcpFastOpen": true,
-          "interface": "warp"
+    ],
+    "routing": {
+      "domainStrategy": "IPIfNonMatch",
+      "rules": [
+        {
+          "outboundTag": "warp",
+          "domain": [
+            "geosite:google",
+            "twitter.com",
+            "instagram.com",
+            "ipinfo.io",
+            "x.com",
+            "spotify.com",
+            "tweetdeck.com",
+            "twitter.co",
+            "twttr.com",
+            "twtrdns.net",
+            "twitteroauth.com",
+            "twitterstat.us",
+            "twitterinc.com",
+            "twitpic.com",
+            "twimg.com",
+            "t.co",
+            "pscp.tv",
+            "ads-twitter.com",
+            "periscope.tv"
+          ],
+          "type": "field"
+        },
+        {
+          "ip": [
+            "geoip:private"
+          ],
+          "outboundTag": "BLOCK",
+          "type": "field"
+        },
+        {
+          "domain": [
+            "localhost"
+          ],
+          "outboundTag": "BLOCK",
+          "type": "field"
         }
-      }
+      ]
     }
-  ],
-  "routing": {
-    "domainStrategy": "IPIfNonMatch",
-    "rules": [
-      {
-        "outboundTag": "warp",
-        "domain": [
-          "geosite:google",
-          "twitter.com",
-          "instagram.com",
-          "ipinfo.io",
-          "x.com",
-          "spotify.com",
-          "tweetdeck.com",
-          "twitter.co",
-          "twttr.com",
-          "twtrdns.net",
-          "twitteroauth.com",
-          "twitterstat.us",
-          "twitterinc.com",
-          "twitpic.com",
-          "twimg.com",
-          "t.co",
-          "pscp.tv",
-          "ads-twitter.com",
-          "periscope.tv"
-        ],
-        "type": "field"
-      },
-      {
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "BLOCK",
-        "type": "field"
-      },
-      {
-        "domain": [
-          "localhost"
-        ],
-        "outboundTag": "BLOCK",
-        "type": "field"
-      }
-    ]
-  }
-}' > /root/marzban/xray_config.json && \
+  }' > /root/marzban/xray_config.json && \
 
-  read -p "Enter the Domain: " DOMAIN
-  read -p "Enter the VTH: " PORT_VTH
-  read -p "Enter the VT: " PORT_VT
-  read -p "Enter the VWH: " PORT_VWH
-  read -p "Enter the SH: " PORT_SH
-  read -p "Enter the VTHT: " PORT_VTHT
+read -p "Enter the Domain: " DOMAIN
+read -p "Enter the VTH: " PORT_VTH
+read -p "Enter the VT: " PORT_VT
+read -p "Enter the VWH: " PORT_VWH
+read -p "Enter the SH: " PORT_SH
+read -p "Enter the VTHT: " PORT_VTHT
 
-sed -i "s/\$DOMAIN/$DOMAIN/g" /root/marzban/xray_config.json && \
-sed -i "s/\$PORT_VTH/$PORT_VTH/g" /root/marzban/xray_config.json && \
-sed -i "s/\$PORT_VT/$PORT_VT/g" /root/marzban/xray_config.json && \
-sed -i "s/\$PORT_VWH/$PORT_VWH/g" /root/marzban/xray_config.json && \
-sed -i "s/\$PORT_SH/$PORT_SH/g" /root/marzban/xray_config.json && \
-sed -i "s/\$PORT_VTHT/$PORT_VTHT/g" /root/marzban/xray_config.json && \
+  sed -i "s/\$DOMAIN/$DOMAIN/g" /root/marzban/xray_config.json && \
+  sed -i "s/\$PORT_VTH/$PORT_VTH/g" /root/marzban/xray_config.json && \
+  sed -i "s/\$PORT_VT/$PORT_VT/g" /root/marzban/xray_config.json && \
+  sed -i "s/\$PORT_VWH/$PORT_VWH/g" /root/marzban/xray_config.json && \
+  sed -i "s/\$PORT_SH/$PORT_SH/g" /root/marzban/xray_config.json && \
+  sed -i "s/\$PORT_VTHT/$PORT_VTHT/g" /root/marzban/xray_config.json && \
 
-curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
-export DOMAIN=$DOMAIN && \
-mkdir -p /var/lib/marzban/certs && \
-~/.acme.sh/acme.sh \
-  --issue --force --standalone -d "$DOMAIN" \
-  --fullchain-file "/var/lib/marzban/certs/$DOMAIN.cer" \
-  --key-file "/var/lib/marzban/certs/$DOMAIN.cer.key" && \
-
-docker compose up -d && \
-cd && \
+  curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
+  export DOMAIN=$DOMAIN.soulsharp.site && \
+  mkdir -p /var/lib/marzban/certs && \
+  ~/.acme.sh/acme.sh \
+    --issue --force --standalone -d "$DOMAIN" \
+    --fullchain-file "/var/lib/marzban/certs/$DOMAIN.cer" \
+    --key-file "/var/lib/marzban/certs/$DOMAIN.cer.key" && \
+  cd /root/marzban && \
+  docker compose up -d && \
+  cd && \
 
 # Get license key from the user
 read -p "Enter the license key: " LICENSE
