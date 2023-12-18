@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Get server name from the user
-read -p "Enter the server name: " SERVER
-
 # Update the root password and set DNS
 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   ufw disable && \
@@ -323,8 +320,16 @@ sed -i "s/\$PORT_VWH/$PORT_VWH/g" /root/marzban/xray_config.json && \
 sed -i "s/\$PORT_SH/$PORT_SH/g" /root/marzban/xray_config.json && \
 sed -i "s/\$PORT_VTHT/$PORT_VTHT/g" /root/marzban/xray_config.json && \
 
-  docker compose up -d && \
-  cd && \
+curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
+export DOMAIN=$DOMAIN && \
+mkdir -p /var/lib/marzban/certs && \
+~/.acme.sh/acme.sh \
+  --issue --force --standalone -d "$DOMAIN" \
+  --fullchain-file "/var/lib/marzban/certs/$DOMAIN.cer" \
+  --key-file "/var/lib/marzban/certs/$DOMAIN.cer.key" && \
+
+docker compose up -d && \
+cd && \
 
 # Get license key from the user
 read -p "Enter the license key: " LICENSE
