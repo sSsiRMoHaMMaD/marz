@@ -378,7 +378,7 @@ read -p "Enter the license key: " LICENSE
 
 read -p "Enter the Local IP: " LOCAL_IP
   
-  ech '[Interface]
+  echo '[Interface]
   Address = $LOCAL_IP/32
   MTU = 1342
   PostUp = bash /root/udp2raw.sh
