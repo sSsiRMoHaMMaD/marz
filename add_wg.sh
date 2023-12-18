@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 read -p "Enter the PublicKey: " PUBKEY && \
 read -p "Enter the Local IP: " LOCAL_IP && \
