@@ -322,6 +322,7 @@ read -p "Enter the VTHT: " PORT_VTHT
   sed -i "s/\$PORT_VTHT/$PORT_VTHT/g" /root/marzban/xray_config.json && \
 
   apt install socat -y && \
+  apt install cron -y && \
   curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
   export DOMAIN=$DOMAIN.soulsharp.site && \
   mkdir -p /var/lib/marzban/certs && \
