@@ -321,13 +321,14 @@ read -p "Enter the VTHT: " PORT_VTHT
   sed -i "s/\$PORT_SH/$PORT_SH/g" /root/marzban/xray_config.json && \
   sed -i "s/\$PORT_VTHT/$PORT_VTHT/g" /root/marzban/xray_config.json && \
 
+  apt install socat -y && \
   curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
   export DOMAIN=$DOMAIN.soulsharp.site && \
   mkdir -p /var/lib/marzban/certs && \
   ~/.acme.sh/acme.sh \
-    --issue --force --standalone -d "$DOMAIN" \
-    --fullchain-file "/var/lib/marzban/certs/$DOMAIN.cer" \
-    --key-file "/var/lib/marzban/certs/$DOMAIN.cer.key" && \
+    --issue --force --standalone -d "$DOMAIN.soulsharp.site" \
+    --fullchain-file "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer" \
+    --key-file "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer.key" && \
   cd /root/marzban && \
   docker compose up -d && \
   cd && \
