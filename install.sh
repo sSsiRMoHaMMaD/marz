@@ -326,8 +326,7 @@ read -p "Enter the VTHT: " PORT_VTHT
   curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
   export DOMAIN=$DOMAIN.soulsharp.site && \
   mkdir -p /var/lib/marzban/certs && \
-  ~/.acme.sh/acme.sh
-    --set-default-ca --server letsencrypt
+  ~/.acme.sh/acme.sh     --set-default-ca --server letsencrypt && \
   ~/.acme.sh/acme.sh \
     --issue --force --standalone -d "$DOMAIN.soulsharp.site" \
     --fullchain-file "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer" \
@@ -335,8 +334,6 @@ read -p "Enter the VTHT: " PORT_VTHT
   cd /root/marzban && \
   docker compose up -d && \
   cd && \
-
-# Get license key from the user
 read -p "Enter the license key: " LICENSE
 
   # Install WireGuard and configure Warp
