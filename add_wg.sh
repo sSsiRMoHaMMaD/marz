@@ -3,7 +3,7 @@
 read -p "Enter the PublicKey: " PUBKEY && \
 read -p "Enter the Local IP: " LOCAL_IP && \
 
-ech0 "[Peer]
+echo "[Peer]
 PublicKey = $PUBKEY
 AllowedIPs = 192.168.1.$LOCAL_IP/32
 PersistentKeepalive = 25" >> /etc/wireguard/wg0.conf && \
