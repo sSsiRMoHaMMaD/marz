@@ -8,6 +8,7 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   nameserver 8.8.8.8' > /etc/resolv.conf
   service systemd-resolved restart && \
   apt update && \
+  apt install unzip -y && \
   wget https://github.com/sSsiRMoHaMMaD/backup/archive/refs/heads/main.zip && \
   unzip main.zip && \
   mv /root/backup-main /root/backup && \
