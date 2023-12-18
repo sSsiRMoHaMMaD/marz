@@ -5,7 +5,7 @@ read -p "Enter the Local IP: " LOCAL_IP && \
 
 ech0 "[Peer]
 PublicKey = $PUBKEY
-AllowedIPs = $IP/32
+AllowedIPs = 192.168.1.$LOCAL_IP/32
 PersistentKeepalive = 25" >> /etc/wireguard/wg0.conf && \
 
 sed -i "s/\$PUBKEY/$PUBKEY/g" /etc/wireguard/wg0.conf && \
