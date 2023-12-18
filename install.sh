@@ -377,7 +377,6 @@ read -p "Enter the license key: " LICENSE
   systemctl start udp2raw.service && \
 
 read -p "Enter the Local IP: " LOCAL_IP
-  sed -i "s/\$LOCAL_IP/$LOCAL_IP/g" /etc/wireguard/wg0.conf && \
   
   ech '[Interface]
   Address = $LOCAL_IP/32
@@ -416,6 +415,7 @@ read -p "Enter the Local IP: " LOCAL_IP
   Endpoint = 127.0.0.1:51826
   PersistentKeepalive = 25' > /etc/wireguard/wg0.conf && \
 
+  sed -i "s/\$LOCAL_IP/$LOCAL_IP/g" /etc/wireguard/wg0.conf && \
   cd /etc/wireguard/ && \
   umask 077; wg genkey | tee privatekey | wg pubkey > publickey && \
   chmod 600 /etc/wireguard/privatekey && \
