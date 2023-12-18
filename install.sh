@@ -337,6 +337,7 @@ read -p "Enter the license key: " LICENSE
 
 # Install WireGuard and configure Warp
 wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
+  apt install wireguard -y && \
   mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
   chmod +x /usr/bin/wgcf && \
   echo -e "wgcf register\n" | wgcf register && \
@@ -374,7 +375,7 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   systemctl enable udp2raw.service && \
   systemctl start udp2raw.service && \
 
-  read -p "Enter the Local IP: " LOCAL_IP
+read -p "Enter the Local IP: " LOCAL_IP
   sed -i "s/\$LOCAL_IP/$LOCAL_IP/g" /etc/wireguard/wg0.conf && \
   
   ech '[Interface]
