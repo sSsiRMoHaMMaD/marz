@@ -188,6 +188,48 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
           "network": "tcp,udp"
         }
       },
+          {
+      "tag": "VLESS TCP TLS",
+      "listen": "0.0.0.0",
+      "port": 2070,
+      "protocol": "vless",
+      "settings": {
+        "clients": [],
+        "decryption": "none",
+        "fallbacks": [
+          {
+            "dest": 80
+          },
+          {
+            "alpn": "h2",
+            "dest": 53
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ],
+          "certificates": [
+            {
+              "certificateFile": "/var/lib/marzban/certs/tr.soulsharp.site.cer",
+              "keyFile": "/var/lib/marzban/certs/tr.soulsharp.site.cer.key"
+            }
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    },
       {
         "tag": "VLESS TCP HTTP TLS",
         "listen": "0.0.0.0",
