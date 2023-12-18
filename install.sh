@@ -191,7 +191,7 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
       {
         "tag": "VLESS TCP HTTP TLS",
         "listen": "0.0.0.0",
-        "port": $PORT_VTHT,
+        "port": $PORT_THT,
         "protocol": "vless",
         "settings": {
           "clients": [],
@@ -312,7 +312,7 @@ read -p "Enter the VTH: " PORT_VTH
 read -p "Enter the VT: " PORT_VT
 read -p "Enter the VWH: " PORT_VWH
 read -p "Enter the SH: " PORT_SH
-read -p "Enter the VTHT: " PORT_VTHT
+read -p "Enter the THT: " PORT_THT
 read -p "Enter the SSL: " SSL
 read -p "Enter the license key: " LICENSE
 
@@ -321,7 +321,7 @@ read -p "Enter the license key: " LICENSE
   sed -i "s/\$PORT_VT/$PORT_VT/g" /root/marzban/xray_config.json && \
   sed -i "s/\$PORT_VWH/$PORT_VWH/g" /root/marzban/xray_config.json && \
   sed -i "s/\$PORT_SH/$PORT_SH/g" /root/marzban/xray_config.json && \
-  sed -i "s/\$PORT_VTHT/$PORT_VTHT/g" /root/marzban/xray_config.json && \
+  sed -i "s/\$PORT_THT/$PORT_THT/g" /root/marzban/xray_config.json && \
 
   apt install socat -y && \
   apt install cron -y && \
