@@ -313,6 +313,8 @@ read -p "Enter the VT: " PORT_VT
 read -p "Enter the VWH: " PORT_VWH
 read -p "Enter the SH: " PORT_SH
 read -p "Enter the VTHT: " PORT_VTHT
+read -p "Enter the SSL: " SSL
+read -p "Enter the license key: " LICENSE
 
   sed -i "s/\$DOMAIN/$DOMAIN/g" /root/marzban/xray_config.json && \
   sed -i "s/\$PORT_VTH/$PORT_VTH/g" /root/marzban/xray_config.json && \
@@ -324,19 +326,17 @@ read -p "Enter the VTHT: " PORT_VTHT
   apt install socat -y && \
   apt install cron -y && \
   curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
-  export DOMAIN=$DOMAIN.soulsharp.site && \
+  export DOMAIN=$SSL.soulsharp.site && \
   mkdir -p /var/lib/marzban/certs && \
   ~/.acme.sh/acme.sh     --set-default-ca --server letsencrypt && \
   ~/.acme.sh/acme.sh \
-    --issue --force --standalone -d "$DOMAIN.soulsharp.site" \
-    --fullchain-file "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer" \
-    --key-file "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer.key" && \
+    --issue --force --standalone -d "$SSL.soulsharp.site" \
+    --fullchain-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer" \
+    --key-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer.key" && \
   cd /root/marzban && \
   docker compose up -d && \
   cd && \
-read -p "Enter the license key: " LICENSE
 
-  # Install WireGuard and configure Warp
   wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
   apt install wireguard -y && \
   mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
