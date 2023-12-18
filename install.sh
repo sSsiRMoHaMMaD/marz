@@ -326,6 +326,8 @@ read -p "Enter the VTHT: " PORT_VTHT
   curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
   export DOMAIN=$DOMAIN.soulsharp.site && \
   mkdir -p /var/lib/marzban/certs && \
+  ~/.acme.sh/acme.sh
+    --set-default-ca --server letsencrypt
   ~/.acme.sh/acme.sh \
     --issue --force --standalone -d "$DOMAIN.soulsharp.site" \
     --fullchain-file "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer" \
@@ -337,8 +339,8 @@ read -p "Enter the VTHT: " PORT_VTHT
 # Get license key from the user
 read -p "Enter the license key: " LICENSE
 
-# Install WireGuard and configure Warp
-wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
+  # Install WireGuard and configure Warp
+  wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
   apt install wireguard -y && \
   mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
   chmod +x /usr/bin/wgcf && \
