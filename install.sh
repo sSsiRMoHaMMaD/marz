@@ -388,7 +388,7 @@ read -p "Enter the license key: " LICENSE
   sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
   wgcf update && \
   wgcf generate && \
-  sudo apt install wireguard-dkms wireguard-tools resolvconf -y && \
+  sudo apt install wireguard-dkms wireguard-tools -y && \
   sed -i '7i\Table = off' wgcf-profile.conf && \
   mv /root/wgcf-profile.conf /etc/wireguard/warp.conf && \
   sudo systemctl enable --now wg-quick@warp && \
