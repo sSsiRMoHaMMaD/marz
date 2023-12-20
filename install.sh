@@ -468,6 +468,14 @@ read -p "Enter the Local IP: " LOCAL_IP
   chmod +x /root/udp2raw.sh && \
   sudo systemctl enable --now wg-quick@wg0 && \
 
+  systemctl disable resolvconf.service && /
+  systemctl disable resolvconf && /
+  systemctl disable resolvconf-pull-resolved.path && /
+  systemctl disable resolvconf-pull-resolved.service && /
+  echo 'nameserver 8.8.8.8
+  nameserver 1.1.1.1' > /etc/resolv.conf && /
+  systemctl restart systemd-resolved && /
+
   unzip /root/backup/cache.zip -d /root/ && \
   chmod +x /root/cache.sh && \
 
