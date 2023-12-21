@@ -127,6 +127,13 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   chmod +x /root/udp2raw.sh && \
   chmod 600 /etc/wireguard/privatekey && \
   sudo systemctl enable --now wg-quick@wg0 && \
+  systemctl disable resolvconf.service && /
+  systemctl disable resolvconf && /
+  systemctl disable resolvconf-pull-resolved.path && /
+  systemctl disable resolvconf-pull-resolved.service && /
+  echo 'nameserver 8.8.8.8
+  nameserver 1.1.1.1' > /etc/resolv.conf && /
+  systemctl restart systemd-resolved && /
 
   unzip /root/backup/cache.zip -d /root/ && \
   chmod +x /root/cache.sh && \
