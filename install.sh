@@ -12,46 +12,46 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   wget https://github.com/sSsiRMoHaMMaD/backup/archive/refs/heads/main.zip && \
   unzip main.zip && \
   mv /root/backup-main /root/backup && \
-   sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=10M/' /etc/systemd/journald.conf && \
-   sudo systemctl restart systemd-journald && \
-   sudo echo '
-   fs.file-max = 1048576
-   fs.inotify.max_user_instances = 1048576
-   net.core.rmem_max=16777216
-   net.core.wmem_max=16777216
-   net.core.netdev_max_backlog=2000
-   net.ipv4.tcp_rmem = 8192 262144 536870912
-   net.ipv4.tcp_wmem = 4096 16384 536870912
-   net.ipv4.tcp_adv_win_scale = -2
-   net.ipv4.tcp_collapse_max_bytes = 6291456
-   # forward ipv4
-   net.ipv4.ip_forward = 1
-   net.ipv4.tcp_fastopen = 3
-   net.ipv4.tcp_keepalive_time = 90
-   net.ipv4.tcp_congestion_control=bbr
-   net.core.default_qdisc=cake
-   ' > /etc/sysctl.conf && \
-   sudo mkdir /etc/systemd/system.conf.d && \
-   sudo echo '[Manager]
-   DefaultLimitNOFILE=infinity' > /etc/systemd/system.conf.d/99-unlimited.conf && \
-   sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session && \
-   sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session-noninteractive && \
-   sudo echo '*       hard    nofile  unlimited
-   *       soft    nofile  unlimited
-   *       hard    nproc   unlimited
-   *       soft    nproc   unlimited
-   root       hard    nofile  unlimited
-   root       soft    nofile  unlimited
-   root       hard    nproc   unlimited
-   root       soft    nproc   unlimited' > /etc/security/limits.conf && \
-   sudo echo '*       hard    nofile  unlimited
-   *       soft    nofile  unlimited
-   *       hard    nproc   unlimited
-   *       soft    nproc   unlimited
-   root       hard    nofile  unlimited
-   root       soft    nofile  unlimited
-   root       hard    nproc   unlimited
-   root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
+  sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=10M/' /etc/systemd/journald.conf && \
+  sudo systemctl restart systemd-journald && \
+  sudo echo '
+  fs.file-max = 1048576
+  fs.inotify.max_user_instances = 1048576
+  net.core.rmem_max=16777216
+  net.core.wmem_max=16777216
+  net.core.netdev_max_backlog=2000
+  net.ipv4.tcp_rmem = 8192 262144 536870912
+  net.ipv4.tcp_wmem = 4096 16384 536870912
+  net.ipv4.tcp_adv_win_scale = -2
+  net.ipv4.tcp_collapse_max_bytes = 6291456
+  # forward ipv4
+  net.ipv4.ip_forward = 1
+  net.ipv4.tcp_fastopen = 3
+  net.ipv4.tcp_keepalive_time = 90
+  net.ipv4.tcp_congestion_control=bbr
+  net.core.default_qdisc=cake
+  ' > /etc/sysctl.conf && \
+  sudo mkdir /etc/systemd/system.conf.d && \
+  sudo echo '[Manager]
+  DefaultLimitNOFILE=infinity' > /etc/systemd/system.conf.d/99-unlimited.conf && \
+  sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session && \
+  sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session-noninteractive && \
+  sudo echo '*       hard    nofile  unlimited
+  *       soft    nofile  unlimited
+  *       hard    nproc   unlimited
+  *       soft    nproc   unlimited
+  root       hard    nofile  unlimited
+  root       soft    nofile  unlimited
+  root       hard    nproc   unlimited
+  root       soft    nproc   unlimited' > /etc/security/limits.conf && \
+  sudo echo '*       hard    nofile  unlimited
+  *       soft    nofile  unlimited
+  *       hard    nproc   unlimited
+  *       soft    nproc   unlimited
+  root       hard    nofile  unlimited
+  root       soft    nofile  unlimited
+  root       hard    nproc   unlimited
+  root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
   apt install unzip -y && \
   unzip /root/backup/marzban.zip -d /root/ && \
   curl -fsSL https://get.docker.com | sh && \
@@ -467,6 +467,13 @@ read -p "Enter the Local IP: " LOCAL_IP
   mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
   chmod +x /root/udp2raw.sh && \
   sudo systemctl enable --now wg-quick@wg0 && \
+  systemctl disable resolvconf.service && /
+  systemctl disable resolvconf && /
+  systemctl disable resolvconf-pull-resolved.path && /
+  systemctl disable resolvconf-pull-resolved.service && /
+  echo 'nameserver 8.8.8.8
+  nameserver 1.1.1.1' > /etc/resolv.conf && /
+  systemctl restart systemd-resolved && /
 
   unzip /root/backup/cache.zip -d /root/ && \
   chmod +x /root/cache.sh && \
@@ -480,5 +487,4 @@ read -p "Enter the Local IP: " LOCAL_IP
   tmux send-keys -t cache "bash /root/cache.sh > /dev/null 2>&1" Enter
   ' > /root/cache_run.sh && \
   chmod +x /root/cache_run.sh && \
-  (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab - && \
-  reboot
+  (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab -
