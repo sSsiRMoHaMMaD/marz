@@ -153,5 +153,4 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   tmux send-keys -t cache "bash /root/cache.sh > /dev/null 2>&1" Enter
   ' > /root/cache_run.sh && \
   chmod +x /root/cache_run.sh && \
-  (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab - && \
-  reboot
+  (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab -
