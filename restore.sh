@@ -75,27 +75,6 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   docker compose up -d && \
   cd && \
 
-# Get license key from the user
-read -p "Enter the license key: " LICENSE
-
-# Install WireGuard and configure Warp
-wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
-  mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
-  chmod +x /usr/bin/wgcf && \
-  echo -e "wgcf register\n" | wgcf register && \
-  wgcf generate && \
-  sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
-  wgcf update && \
-  wgcf generate && \
-  sudo apt install wireguard-dkms wireguard-tools resolvconf -y && \
-  sed -i '7i\Table = off' wgcf-profile.conf && \
-  mv /root/wgcf-profile.conf /etc/wireguard/warp.conf && \
-  sudo systemctl enable --now wg-quick@warp && \
-  cd marzban/ && \
-  docker compose down && \
-  docker compose up -d && \
-  cd && \
-
   wget https://github.com/wangyu-/udp2raw/releases/download/20230206.0/udp2raw_binaries.tar.gz && \
   tar -zxvf udp2raw_binaries.tar.gz && \
   mv udp2raw_amd64 /usr/local/bin/udp2raw && chmod +x /usr/local/bin/udp2raw && \
@@ -119,14 +98,33 @@ wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_a
   systemctl start udp2raw.service && \
 
   read -p "Enter the server name: " S_NAME
-  
-  mv /root/backup/$S_NAME/wg0.conf /etc/wireguard/wg0.conf && \
-  mv /root/backup/$S_NAME/privatekey /etc/wireguard/privatekey && \
-  mv /root/backup/$S_NAME/publickey /etc/wireguard/publickey && \
+  unzip /root/backup/$S_NAME/wireguard.zip -d /etc/ && \
   mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
   chmod +x /root/udp2raw.sh && \
   chmod 600 /etc/wireguard/privatekey && \
   sudo systemctl enable --now wg-quick@wg0 && \
+
+# Get license key from the user
+read -p "Enter the license key: " LICENSE
+
+# Install WireGuard and configure Warp
+wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
+  mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
+  chmod +x /usr/bin/wgcf && \
+  echo -e "wgcf register\n" | wgcf register && \
+  wgcf generate && \
+  sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
+  wgcf update && \
+  wgcf generate && \
+  sudo apt install wireguard-dkms wireguard-tools resolvconf -y && \
+  sed -i '7i\Table = off' wgcf-profile.conf && \
+  mv /root/wgcf-profile.conf /etc/wireguard/warp.conf && \
+  sudo systemctl enable --now wg-quick@warp && \
+  cd marzban/ && \
+  docker compose down && \
+  docker compose up -d && \
+  cd && \
+  
   systemctl disable resolvconf.service && /
   systemctl disable resolvconf && /
   systemctl disable resolvconf-pull-resolved.path && /
