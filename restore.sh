@@ -105,7 +105,7 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   systemctl enable udp2raw.service && \
   systemctl start udp2raw.service && \
 
-  read -p "Enter the server name: " S_NAME
+read -p "Enter the server name: " S_NAME
   unzip /root/backup/$S_NAME/wireguard.zip -d /etc/ && \
   mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
   chmod +x /root/udp2raw.sh && \
