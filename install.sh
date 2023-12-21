@@ -370,7 +370,7 @@ read -p "Enter the license key: " LICENSE
   curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
   export DOMAIN=$SSL.soulsharp.site && \
   mkdir -p /var/lib/marzban/certs && \
-  ~/.acme.sh/acme.sh     --set-default-ca --server letsencrypt && \
+  #~/.acme.sh/acme.sh     --set-default-ca --server letsencrypt && \
   ~/.acme.sh/acme.sh \
     --issue --force --standalone -d "$SSL.soulsharp.site" \
     --fullchain-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer" \
