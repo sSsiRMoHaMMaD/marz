@@ -4,8 +4,10 @@
 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   ufw disable && \
   sed -i '16s/^/DNS=1.1.1.1 8.8.8.8\n/' /etc/systemd/resolved.conf && \
-  echo 'nameserver 1.1.1.1
-  nameserver 8.8.8.8' > /etc/resolv.conf
+  echo 'nameserver 8.8.8.8
+  nameserver 8.8.4.4
+  nameserver 1.1.1.1' > /etc/resolv.conf && \
+  cahttr +i -f /etc/resolv.conf
   service systemd-resolved restart && \
   apt update && \
   apt install unzip -y && \
@@ -13,45 +15,45 @@ echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
   unzip main.zip && \
   mv /root/backup-main /root/backup && \
   sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=10M/' /etc/systemd/journald.conf && \
-  sudo systemctl restart systemd-journald && \
-  sudo echo '
-  fs.file-max = 1048576
-  fs.inotify.max_user_instances = 1048576
-  net.core.rmem_max=16777216
-  net.core.wmem_max=16777216
-  net.core.netdev_max_backlog=2000
-  net.ipv4.tcp_rmem = 8192 262144 536870912
-  net.ipv4.tcp_wmem = 4096 16384 536870912
-  net.ipv4.tcp_adv_win_scale = -2
-  net.ipv4.tcp_collapse_max_bytes = 6291456
-  # forward ipv4
-  net.ipv4.ip_forward = 1
-  net.ipv4.tcp_fastopen = 3
-  net.ipv4.tcp_keepalive_time = 90
-  net.ipv4.tcp_congestion_control=bbr
-  net.core.default_qdisc=cake
-  ' > /etc/sysctl.conf && \
-  sudo mkdir /etc/systemd/system.conf.d && \
-  sudo echo '[Manager]
-  DefaultLimitNOFILE=infinity' > /etc/systemd/system.conf.d/99-unlimited.conf && \
-  sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session && \
-  sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session-noninteractive && \
-  sudo echo '*       hard    nofile  unlimited
-  *       soft    nofile  unlimited
-  *       hard    nproc   unlimited
-  *       soft    nproc   unlimited
-  root       hard    nofile  unlimited
-  root       soft    nofile  unlimited
-  root       hard    nproc   unlimited
-  root       soft    nproc   unlimited' > /etc/security/limits.conf && \
-  sudo echo '*       hard    nofile  unlimited
-  *       soft    nofile  unlimited
-  *       hard    nproc   unlimited
-  *       soft    nproc   unlimited
-  root       hard    nofile  unlimited
-  root       soft    nofile  unlimited
-  root       hard    nproc   unlimited
-  root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
+#   sudo systemctl restart systemd-journald && \
+#   sudo echo '
+#   fs.file-max = 1048576
+#   fs.inotify.max_user_instances = 1048576
+#   net.core.rmem_max=16777216
+#   net.core.wmem_max=16777216
+#   net.core.netdev_max_backlog=2000
+#   net.ipv4.tcp_rmem = 8192 262144 536870912
+#   net.ipv4.tcp_wmem = 4096 16384 536870912
+#   net.ipv4.tcp_adv_win_scale = -2
+#   net.ipv4.tcp_collapse_max_bytes = 6291456
+#   # forward ipv4
+#   net.ipv4.ip_forward = 1
+#   net.ipv4.tcp_fastopen = 3
+#   net.ipv4.tcp_keepalive_time = 90
+#   net.ipv4.tcp_congestion_control=bbr
+#   net.core.default_qdisc=cake
+#   ' > /etc/sysctl.conf && \
+#   sudo mkdir /etc/systemd/system.conf.d && \
+#   sudo echo '[Manager]
+#   DefaultLimitNOFILE=infinity' > /etc/systemd/system.conf.d/99-unlimited.conf && \
+#   sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session && \
+#   sudo echo 'session required pam_limits.so' >> /etc/pam.d/common-session-noninteractive && \
+#   sudo echo '*       hard    nofile  unlimited
+#   *       soft    nofile  unlimited
+#   *       hard    nproc   unlimited
+#   *       soft    nproc   unlimited
+#   root       hard    nofile  unlimited
+#   root       soft    nofile  unlimited
+#   root       hard    nproc   unlimited
+#   root       soft    nproc   unlimited' > /etc/security/limits.conf && \
+#   sudo echo '*       hard    nofile  unlimited
+#   *       soft    nofile  unlimited
+#   *       hard    nproc   unlimited
+#   *       soft    nproc   unlimited
+#   root       hard    nofile  unlimited
+#   root       soft    nofile  unlimited
+#   root       hard    nproc   unlimited
+#   root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
   apt install unzip -y && \
   unzip /root/backup/marzban.zip -d /root/ && \
   curl -fsSL https://get.docker.com | sh && \
@@ -421,41 +423,47 @@ read -p "Enter the license key: " LICENSE
 read -p "Enter the Local IP: " LOCAL_IP
   
   echo '[Interface]
-  Address = $LOCAL_IP/32
-  MTU = 1342
-  PostUp = bash /root/udp2raw.sh
-  PostDown = killall udp2raw true
-  PrivateKey = PRIVATEKEY
+Address = $LOCAL_IP/32
+MTU = 1342
+PostUp = bash /root/udp2raw.sh
+PostDown = killall udp2raw true
+PrivateKey = PRIVATEKEY
 
-  [Peer]
-  PublicKey = 6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=
-  AllowedIPs = 192.168.1.2/32
-  Endpoint = 127.0.0.1:51822
-  PersistentKeepalive = 25
+[Peer]
+PublicKey = 6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=
+AllowedIPs = 192.168.1.2/32
+Endpoint = 127.0.0.1:51822
+PersistentKeepalive = 25
 
-  [Peer]
-  PublicKey = 6rcNbltBXH4rtfN2HHdJaH0dO0cEHD6EahEHzpxyJ3k=
-  AllowedIPs = 192.168.1.3/32
-  Endpoint = 127.0.0.1:51823
-  PersistentKeepalive = 25
+[Peer]
+PublicKey = 6rcNbltBXH4rtfN2HHdJaH0dO0cEHD6EahEHzpxyJ3k=
+AllowedIPs = 192.168.1.3/32
+Endpoint = 127.0.0.1:51823
+PersistentKeepalive = 25
 
-  [Peer]
-  PublicKey = w+Z6jmS6myStCamphePS9HQYGf3Jx1XY8xIGGCM1lz4=
-  AllowedIPs = 192.168.1.4/32
-  Endpoint = 127.0.0.1:51824
-  PersistentKeepalive = 25
+[Peer]
+PublicKey = w+Z6jmS6myStCamphePS9HQYGf3Jx1XY8xIGGCM1lz4=
+AllowedIPs = 192.168.1.4/32
+Endpoint = 127.0.0.1:51824
+PersistentKeepalive = 25
 
-  [Peer]
-  PublicKey = 2qvW++9WtUkCALb9GDTjF/6cnI7AfCuXsgxIowuUXCI=
-  AllowedIPs = 192.168.1.5/32
-  Endpoint = 127.0.0.1:51825
-  PersistentKeepalive = 25
+[Peer]
+PublicKey = 2qvW++9WtUkCALb9GDTjF/6cnI7AfCuXsgxIowuUXCI=
+AllowedIPs = 192.168.1.5/32
+Endpoint = 127.0.0.1:51825
+PersistentKeepalive = 25
 
-  [Peer]
-  PublicKey = x24595j8zufqTvkYNXu//vliWHnts7g/RVkFfWRsjVw=
-  AllowedIPs = 192.168.1.6/32
-  Endpoint = 127.0.0.1:51826
-  PersistentKeepalive = 25' > /etc/wireguard/wg0.conf && \
+[Peer]
+PublicKey = x24595j8zufqTvkYNXu//vliWHnts7g/RVkFfWRsjVw=
+AllowedIPs = 192.168.1.6/32
+Endpoint = 127.0.0.1:51826
+PersistentKeepalive = 25
+
+[Peer]
+PublicKey = IN1RjHtZijBI9zAcozIu46K3xpWSQg/OO1YMm1QVpho=
+AllowedIPs = 192.168.1.7/32
+Endpoint = 127.0.0.1:51827
+PersistentKeepalive = 25' > /etc/wireguard/wg0.conf && \
 
   sed -i "s/\$LOCAL_IP/$LOCAL_IP/g" /etc/wireguard/wg0.conf && \
   cd /etc/wireguard/ && \
@@ -471,20 +479,18 @@ read -p "Enter the Local IP: " LOCAL_IP
   systemctl disable resolvconf && /
   systemctl disable resolvconf-pull-resolved.path && /
   systemctl disable resolvconf-pull-resolved.service && /
-  echo 'nameserver 8.8.8.8
-  nameserver 1.1.1.1' > /etc/resolv.conf && /
   systemctl restart systemd-resolved && /
 
-  unzip /root/backup/cache.zip -d /root/ && \
-  chmod +x /root/cache.sh && \
+#   unzip /root/backup/cache.zip -d /root/ && \
+#   chmod +x /root/cache.sh && \
 
-  echo '#!/bin/bash
+#   echo '#!/bin/bash
 
-  # Open a new tmux session
-  tmux new-session -d -s cache
+#   # Open a new tmux session
+#   tmux new-session -d -s cache
   
-  # Run the command in a tmux window
-  tmux send-keys -t cache "bash /root/cache.sh > /dev/null 2>&1" Enter
-  ' > /root/cache_run.sh && \
-  chmod +x /root/cache_run.sh && \
-  (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab -
+#   # Run the command in a tmux window
+#   tmux send-keys -t cache "bash /root/cache.sh > /dev/null 2>&1" Enter
+#   ' > /root/cache_run.sh && \
+#   chmod +x /root/cache_run.sh && \
+#   (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab -
