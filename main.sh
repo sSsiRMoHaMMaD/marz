@@ -18,10 +18,12 @@ show_menu() {
                 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
                 ufw disable && \
                 sed -i '16s/^/DNS=1.1.1.1 8.8.8.8\n/' /etc/systemd/resolved.conf && \
+                rm -rf /etc/resolv.conf && \
+                touch /etc/resolv.conf && \
                 echo 'nameserver 8.8.8.8
                 nameserver 8.8.4.4
                 nameserver 1.1.1.1' > /etc/resolv.conf && \
-                cahttr +i -f /etc/resolv.conf
+                chattr +i -f /etc/resolv.conf
                 service systemd-resolved restart && \
                 apt update && \
                 wget https://github.com/sSsiRMoHaMMaD/backup/archive/refs/heads/main.zip && \
