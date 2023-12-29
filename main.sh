@@ -744,4 +744,6 @@ show_menu() {
 while true
 do
     show_menu
+    sleep 1  # تاخیر برای جلوگیری از خواندن سریع پیغام‌ها
+    clear
 done
