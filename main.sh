@@ -560,7 +560,9 @@ show_menu() {
             echo -e "wgcf register\n" | wgcf register && \
             wgcf generate && \
             sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
+            sleep 1 && \
             wgcf update && \
+            sleep 1 && \
             wgcf generate && \
             sudo apt install wireguard-dkms wireguard-tools -y && \
             sed -i '7i\Table = off' wgcf-profile.conf && \
