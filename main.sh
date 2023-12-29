@@ -21,6 +21,7 @@ show_menu() {
                 echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\nnameserver 1.1.1.1' > /etc/resolv.conf && \
                 service systemd-resolved restart && \
                 apt update && \
+                apt install unzip -y && \
                 wget https://github.com/sSsiRMoHaMMaD/backup/archive/refs/heads/main.zip && \
                 unzip main.zip && \
                 mv /root/backup-main /root/backup && \
