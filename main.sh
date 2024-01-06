@@ -3,7 +3,7 @@
 show_menu() {
 
     PS3="Choose Your Option:"
-    options=("Restore" "Install" "Add Iptables" "Add wireguard Kharej" "Add wireguard Iran" "BBR" "Exit" "Restore Iran")
+    options=("Restore" "Install" "Add Iptables" "Add wireguard Kharej" "Add wireguard Iran" "BBR" "Exit" "Restore Iran" "Optimize Server" "Reset Server")
 
     select opt in "${options[@]}"
     do
@@ -27,7 +27,7 @@ show_menu() {
                 unzip main.zip && \
                 mv /root/backup-main /root/backup && \
                 sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=10M/' /etc/systemd/journald.conf && \
-                #   sudo systemctl restart systemd-journald && \
+                sudo systemctl restart systemd-journald && \
                 #   sudo echo '
                 #   fs.file-max = 51200
                 #   fs.inotify.max_user_instances = 1048576
@@ -735,7 +735,7 @@ show_menu() {
             wget -N --no-check-certificate "https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
                 ;;
 
-            "Install Iran")
+            "Restore Iran")
             #!/bin/bash
 
                 # Get server name from the user
@@ -847,6 +847,76 @@ show_menu() {
                 chattr +i -f /etc/resolv.conf
                 ;;
 
+            "Optimize Server")
+            echo '
+            fs.file-max = 51200
+            fs.inotify.max_user_instances = 1048576
+            net.core.rmem_max = 67108864
+            net.core.wmem_max = 67108864
+            net.core.netdev_max_backlog = 250000
+            net.ipv4.tcp_adv_win_scale = -2
+            net.ipv4.tcp_collapse_max_bytes = 6291456
+            net.core.somaxconn = 4096
+            net.ipv4.tcp_syncookies = 1
+            net.ipv4.tcp_tw_reuse = 1
+            net.ipv4.tcp_tw_recycle = 0
+            net.ipv4.tcp_fin_timeout = 30
+            net.ipv4.tcp_keepalive_time = 1200
+            net.ipv4.ip_local_port_range = 10000 65000
+            net.ipv4.tcp_max_syn_backlog = 8192
+            net.ipv4.tcp_max_tw_buckets = 5000
+            net.ipv4.tcp_fastopen = 3
+            net.ipv4.tcp_mem = 25600 51200 102400
+            net.ipv4.tcp_rmem = 4096 87380 67108864
+            net.ipv4.tcp_wmem = 4096 65536 67108864
+            net.ipv4.tcp_mtu_probing = 1
+            net.ipv4.tcp_congestion_control=bbr
+            net.core.default_qdisc=cake
+            ' > /etc/sysctl.conf
+            mkdir /etc/systemd/system.conf.d
+            echo '[Manager]
+            DefaultLimitNOFILE=infinity' > /etc/systemd/system.conf.d/99-unlimited.conf
+            echo 'session required pam_limits.so' >> /etc/pam.d/common-session
+            echo 'session required pam_limits.so' >> /etc/pam.d/common-session-noninteractive 
+            echo '*       hard    nofile  unlimited
+            *       soft    nofile  unlimited
+            *       hard    nproc   unlimited
+            *       soft    nproc   unlimited
+            root       hard    nofile  unlimited
+            root       soft    nofile  unlimited
+            root       hard    nproc   unlimited
+            root       soft    nproc   unlimited' > /etc/security/limits.conf
+            echo '*       hard    nofile  unlimited
+            *       soft    nofile  unlimited
+            *       hard    nproc   unlimited
+            *       soft    nproc   unlimited
+            root       hard    nofile  unlimited
+            root       soft    nofile  unlimited
+            root       hard    nproc   unlimited
+            root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf
+            ;;
+
+            "Reset Server")
+            echo'
+            net.ipv4.tcp_congestion_control=bbr
+            net.core.default_qdisc=cake' > /etc/sysctl.conf
+            rm -rf /etc/systemd/system.conf.d
+            echo 'session [default=1]                     pam_permit.so
+            session requisite                       pam_deny.so
+            session required                        pam_permit.so
+            session optional                        pam_umask.so
+            session required        pam_unix.so
+            session optional        pam_systemd.so' > /etc/pam.d/common-session
+
+            echo 'session [default=1]                     pam_permit.so
+            session requisite                       pam_deny.so
+            session required                        pam_permit.so
+            session optional                        pam_umask.so
+            session required        pam_unix.so' > /etc/pam.d/common-session-noninteractive
+            echo '#NO_SETTINGS' > /etc/security/limits.conf
+            rm -rf /etc/security/limits.d/99-unlimited.conf
+            ;;
+            
             "Exit")
                 echo "Exit"
                 break
