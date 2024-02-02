@@ -158,7 +158,7 @@ show_menu() {
                 rm -rf /etc/resolv.conf && \
                 touch /etc/resolv.conf && \
                 echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\nnameserver 1.1.1.1' > /etc/resolv.conf && \
-                chattr +i -f /etc/resolv.conf
+                chattr +i -f /etc/resolv.conf && \
 
                 #   unzip /root/backup/cache.zip -d /root/ && \
                 #   chmod +x /root/cache.sh && \
@@ -172,6 +172,7 @@ show_menu() {
                 #   tmux send-keys -t cache "bash /root/cache.sh > /dev/null 2>&1" Enter
                 #   ' > /root/cache_run.sh && \
                 #   chmod +x /root/cache_run.sh && \
+                (crontab -l ; echo "* * * * * echo 1 > /proc/sys/vm/drop_caches && sleep 2 && echo 2 > /proc/sys/vm/drop_caches && sleep 2 && echo 3 > /proc/sys/vm/drop_caches") | crontab -
                 #   (crontab -l ; echo "@reboot /root/cache_run.sh") | crontab -
                 ;;
 
