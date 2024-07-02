@@ -127,7 +127,7 @@ show_menu() {
                 sudo systemctl enable --now wg-quick@wg0 && \
 
                 #Get license key from the user
-                read -p "Enter the license key: " LICENSE
+                #read -p "Enter the license key: " LICENSE
 
                 #Install WireGuard and configure Warp
                 #wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
