@@ -470,46 +470,11 @@ show_menu() {
                     "protocol": "blackhole",
                     "settings": {},
                     "tag": "BLOCK"
-                },
-                {
-                    "tag": "warp",
-                    "protocol": "freedom",
-                    "streamSettings": {
-                    "sockopt": {
-                        "tcpFastOpen": true,
-                        "interface": "warp"
-                    }
-                    }
                 }
                 ],
                 "routing": {
                 "domainStrategy": "IPIfNonMatch",
                 "rules": [
-                    {
-                    "outboundTag": "warp",
-                    "domain": [
-                        "geosite:google",
-                        "twitter.com",
-                        "instagram.com",
-                        "ipinfo.io",
-                        "x.com",
-                        "spotify.com",
-                        "tweetdeck.com",
-                        "twitter.co",
-                        "twttr.com",
-                        "twtrdns.net",
-                        "twitteroauth.com",
-                        "twitterstat.us",
-                        "twitterinc.com",
-                        "twitpic.com",
-                        "twimg.com",
-                        "t.co",
-                        "pscp.tv",
-                        "ads-twitter.com",
-                        "periscope.tv"
-                    ],
-                    "type": "field"
-                    },
                     {
                     "ip": [
                         "geoip:private"
@@ -544,39 +509,39 @@ show_menu() {
             sed -i "s/\$PORT_SH/$PORT_SH/g" /root/marzban/xray_config.json && \
             sed -i "s/\$PORT_THT/$PORT_THT/g" /root/marzban/xray_config.json && \
 
-            apt install socat -y && \
-            apt install cron -y && \
-            curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
-            export DOMAIN=$SSL.soulsharp.site && \
-            mkdir -p /var/lib/marzban/certs && \
+            #apt install socat -y && \
+            #apt install cron -y && \
+            #curl https://get.acme.sh | sh -s email=wzme22@gmail.com && \
+            #export DOMAIN=$SSL.soulsharp.site && \
+            #mkdir -p /var/lib/marzban/certs && \
             #~/.acme.sh/acme.sh     --set-default-ca --server letsencrypt && \
-            ~/.acme.sh/acme.sh \
-                --issue --force --standalone -d "$SSL.soulsharp.site" \
-                --fullchain-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer" \
-                --key-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer.key" && \
+            #~/.acme.sh/acme.sh \
+                #--issue --force --standalone -d "$SSL.soulsharp.site" \
+                #--fullchain-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer" \
+                #--key-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer.key" && \
             cd /root/marzban && \
             docker compose up -d && \
             cd && \
 
-            wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
-            apt install wireguard -y && \
-            mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
-            chmod +x /usr/bin/wgcf && \
-            echo -e "wgcf register\n" | wgcf register && \
-            wgcf generate && \
-            sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
-            sleep 1 && \
-            wgcf update && \
-            sleep 1 && \
-            wgcf generate && \
-            sudo apt install wireguard-dkms wireguard-tools -y && \
-            sed -i '7i\Table = off' wgcf-profile.conf && \
-            mv /root/wgcf-profile.conf /etc/wireguard/warp.conf && \
-            sudo systemctl enable --now wg-quick@warp && \
-            cd marzban/ && \
-            docker compose down && \
-            docker compose up -d && \
-            cd && \
+            #wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
+            #apt install wireguard -y && \
+            #mv wgcf_2.2.19_linux_amd64 /usr/bin/wgcf && \
+            #chmod +x /usr/bin/wgcf && \
+            #echo -e "wgcf register\n" | wgcf register && \
+            #wgcf generate && \
+            #sed -i '3s/.*/license_key = '$LICENSE'/' wgcf-account.toml && \
+            #sleep 1 && \
+            #wgcf update && \
+            #sleep 1 && \
+            #wgcf generate && \
+            #sudo apt install wireguard-dkms wireguard-tools -y && \
+            #sed -i '7i\Table = off' wgcf-profile.conf && \
+            #mv /root/wgcf-profile.conf /etc/wireguard/warp.conf && \
+            #sudo systemctl enable --now wg-quick@warp && \
+            #cd marzban/ && \
+            #docker compose down && \
+            #docker compose up -d && \
+            #cd && \
             wget https://github.com/wangyu-/udp2raw/releases/download/20230206.0/udp2raw_binaries.tar.gz && \
             tar -zxvf udp2raw_binaries.tar.gz && \
             mv udp2raw_amd64 /usr/local/bin/udp2raw && chmod +x /usr/local/bin/udp2raw && \
@@ -609,37 +574,37 @@ show_menu() {
             PrivateKey = PRIVATEKEY
 
             [Peer]
-            PublicKey = 6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=
+            PublicKey = McdZGzoZJwKMcP2sRImh6W7mSmmrOXop10NefXDpL24=
             AllowedIPs = 192.168.1.2/32
             Endpoint = 127.0.0.1:51822
             PersistentKeepalive = 25
-
+            
             [Peer]
             PublicKey = 6rcNbltBXH4rtfN2HHdJaH0dO0cEHD6EahEHzpxyJ3k=
             AllowedIPs = 192.168.1.3/32
             Endpoint = 127.0.0.1:51823
             PersistentKeepalive = 25
-
+            
             [Peer]
             PublicKey = w+Z6jmS6myStCamphePS9HQYGf3Jx1XY8xIGGCM1lz4=
             AllowedIPs = 192.168.1.4/32
             Endpoint = 127.0.0.1:51824
             PersistentKeepalive = 25
-
+            
             [Peer]
-            PublicKey = 2qvW++9WtUkCALb9GDTjF/6cnI7AfCuXsgxIowuUXCI=
+            PublicKey = Gi2dv8RDYubhLcaJos421cceQy2lkOhiyq9nAiXVdis=
             AllowedIPs = 192.168.1.5/32
             Endpoint = 127.0.0.1:51825
             PersistentKeepalive = 25
-
+            
             [Peer]
             PublicKey = x24595j8zufqTvkYNXu//vliWHnts7g/RVkFfWRsjVw=
             AllowedIPs = 192.168.1.6/32
             Endpoint = 127.0.0.1:51826
             PersistentKeepalive = 25
-
+            
             [Peer]
-            PublicKey = IN1RjHtZijBI9zAcozIu46K3xpWSQg/OO1YMm1QVpho=
+            PublicKey = /q45KHbcVp06u826f7DfzBu3NXat7Sh6OU1HvRQZ20k=
             AllowedIPs = 192.168.1.7/32
             Endpoint = 127.0.0.1:51827
             PersistentKeepalive = 25' > /etc/wireguard/wg0.conf && \
