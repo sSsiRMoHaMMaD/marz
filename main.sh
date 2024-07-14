@@ -374,8 +374,8 @@ show_menu() {
                     ],
                     "certificates": [
                         {
-                        "certificateFile": "/var/lib/marzban/certs/tr.soulsharp.site.cer",
-                        "keyFile": "/var/lib/marzban/certs/tr.soulsharp.site.cer.key"
+                        "certificateFile": "/var/lib/marzban/certs/$DOMAIN.soulsharpe.com.cer",
+                        "keyFile": "/var/lib/marzban/certs/$DOMAIN.soulsharpe.com.cer"
                         }
                     ]
                     }
@@ -407,8 +407,8 @@ show_menu() {
                         ],
                         "certificates": [
                         {
-                            "certificateFile": "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer",
-                            "keyFile": "/var/lib/marzban/certs/$DOMAIN.soulsharp.site.cer.key"
+                            "certificateFile": "/var/lib/marzban/certs/$DOMAIN.soulsharpe.com.cer",
+                            "keyFile": "/var/lib/marzban/certs/$DOMAIN.soulsharpe.com.cer.key"
                         }
                         ]
                     },
@@ -478,8 +478,8 @@ show_menu() {
             read -p "Enter the VWH: " PORT_VWH
             read -p "Enter the SH: " PORT_SH
             read -p "Enter the THT: " PORT_THT
-            read -p "Enter the SSL: " SSL
-            read -p "Enter the license key: " LICENSE
+            #read -p "Enter the SSL: " SSL
+            #read -p "Enter the license key: " LICENSE
 
             sed -i "s/\$DOMAIN/$DOMAIN/g" /root/marzban/xray_config.json && \
             sed -i "s/\$PORT_VTH/$PORT_VTH/g" /root/marzban/xray_config.json && \
@@ -543,6 +543,8 @@ show_menu() {
             systemctl enable udp2raw.service && \
             systemctl start udp2raw.service && \
 
+            sudo apt install wireguard-dkms wireguard-tools resolvconf -y
+            
             read -p "Enter the Local IP: " LOCAL_IP
             
             echo '[Interface]
