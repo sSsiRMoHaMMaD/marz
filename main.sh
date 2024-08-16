@@ -75,25 +75,51 @@ show_menu() {
                 #   root       hard    nproc   unlimited
                 #   root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
                 apt install unzip -y && \
-                unzip /root/backup/marzban.zip -d /root/ && \
-                curl -fsSL https://get.docker.com | sh && \
-                cd marzban && \
-                sed -i 's/2083/8880/g' xray_config.json && \
-                sed -i 's/8880/8888/g' env && \
-                sed -i 's/SUDO_USERNAME = "soul"/SUDO_USERNAME = "dopaMine"/g' env && \
-                sed -i 's/SUDO_PASSWORD = "M80b81M"/SUDO_PASSWORD = "80MinE84"/g' env && \
-                docker compose up -d && \
-                cd /var/lib/marzban/ && \
-                rm -rf db.sqlite3 && \
-                mv /root/backup/$SERVER/db.sqlite3 /var/lib/marzban/db.sqlite3 && \
-                unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/ && \
-                cd && \
-                cd marzban/ && \
-                docker compose down && \
-                rm -rf xray_config.json && \
-                mv /root/backup/$SERVER/xray_config.json /root/marzban/xray_config.json && \
-                docker compose up -d && \
-                cd && \
+                #unzip /root/backup/marzban.zip -d /root/ && \
+                #curl -fsSL https://get.docker.com | sh && \
+                #cd marzban && \
+                #sed -i 's/2083/8880/g' xray_config.json && \
+                nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install v0.4.9 > /dev/null 2>&1 &&
+                sleep 300
+                sed -i 's/8000/8888/g' /opt/marzban/.env && \
+                sed -i 's/# SUDO_USERNAME = "admin"/SUDO_USERNAME = "dopaMine"/g' /opt/marzban/.env && \
+                sed -i 's/# SUDO_PASSWORD = "admin"/SUDO_PASSWORD = "80MinE84"/g' /opt/marzban/.env && \
+                mv /root/backup/$SERVER/xray_config.json /var/lib/marzban/xray_config.json && \
+                unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/
+                echo "services:
+marzban:
+image: gozargah/marzban:0.4.9
+restart: always
+env_file: .env
+network_mode: host
+volumes:
+  - /var/lib/marzban:/var/lib/marzban
+depends_on:
+  - mysql
+
+mysql:
+image: mysql:latest
+restart: always
+env_file: .env
+network_mode: host
+environment:
+  MYSQL_DATABASE: marzban
+volumes:
+  - /var/lib/marzban/mysql:/var/lib/mysql" | tee /opt/marzban/docker-compose.yml > /dev/null && sed -i 's/^SQLALCHEMY_DATABASE_URL = "sqlite:\/\//\# &/' /opt/marzban/.env && sudo sed -i '/SQLALCHEMY_DATABASE_URL = "sqlite:\/\//a\
+SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:80MinE84@127.0.0.1/marzban"\
+MYSQL_ROOT_PASSWORD = 80MinE84' /opt/marzban/.env
+                docker restart marzban-marzban-1 && \
+                #cd /var/lib/marzban/ && \
+                #rm -rf db.sqlite3 && \
+                #mv /root/backup/$SERVER/db.sqlite3 /var/lib/marzban/db.sqlite3 && \
+                #unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/ && \
+                #cd && \
+                #cd marzban/ && \
+                #docker compose down && \
+                #rm -rf xray_config.json && \
+                #mv /root/backup/$SERVER/xray_config.json /root/marzban/xray_config.json && \
+                #docker compose up -d && \
+                #cd && \
 
                 wget https://github.com/wangyu-/udp2raw/releases/download/20230206.0/udp2raw_binaries.tar.gz && \
                 tar -zxvf udp2raw_binaries.tar.gz && \
