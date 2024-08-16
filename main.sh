@@ -110,7 +110,8 @@ show_menu() {
                 sed -i '/SQLALCHEMY_DATABASE_URL = "sqlite:\/\//a\
                 SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:80MinE84@127.0.0.1/marzban"\
                 MYSQL_ROOT_PASSWORD = 80MinE84' /opt/marzban/.env && \
-                docker restart marzban-marzban-1 && \
+                nohup marzban restart > /dev/null 2>&1 && \
+                sleep 10
                 #cd /var/lib/marzban/ && \
                 #rm -rf db.sqlite3 && \
                 #mv /root/backup/$SERVER/db.sqlite3 /var/lib/marzban/db.sqlite3 && \
