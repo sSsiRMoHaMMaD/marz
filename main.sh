@@ -80,7 +80,7 @@ show_menu() {
                 #cd marzban && \
                 #sed -i 's/2083/8880/g' xray_config.json && \
                 nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install v0.5.2 > /dev/null 2>&1 && \
-                sleep 300 && \
+                sleep 30 && \
                 sed -i 's/8000/8888/g' /opt/marzban/.env && \
                 sed -i 's/# SUDO_USERNAME = "admin"/SUDO_USERNAME = "dopaMine"/g' /opt/marzban/.env && \
                 sed -i 's/# SUDO_PASSWORD = "admin"/SUDO_PASSWORD = "80MinE84"/g' /opt/marzban/.env && \
