@@ -79,35 +79,37 @@ show_menu() {
                 #curl -fsSL https://get.docker.com | sh && \
                 #cd marzban && \
                 #sed -i 's/2083/8880/g' xray_config.json && \
-                nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install v0.4.9 > /dev/null 2>&1 &&
+                nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install v0.4.9 > /dev/null 2>&1 && \
                 sleep 300
                 sed -i 's/8000/8888/g' /opt/marzban/.env && \
                 sed -i 's/# SUDO_USERNAME = "admin"/SUDO_USERNAME = "dopaMine"/g' /opt/marzban/.env && \
                 sed -i 's/# SUDO_PASSWORD = "admin"/SUDO_PASSWORD = "80MinE84"/g' /opt/marzban/.env && \
                 mv /root/backup/$SERVER/xray_config.json /var/lib/marzban/xray_config.json && \
-                unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/
+                unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/ && \
                 echo "services:
-marzban:
-image: gozargah/marzban:0.4.9
-restart: always
-env_file: .env
-network_mode: host
-volumes:
-  - /var/lib/marzban:/var/lib/marzban
-depends_on:
-  - mysql
-
-mysql:
-image: mysql:latest
-restart: always
-env_file: .env
-network_mode: host
-environment:
-  MYSQL_DATABASE: marzban
-volumes:
-  - /var/lib/marzban/mysql:/var/lib/mysql" | tee /opt/marzban/docker-compose.yml > /dev/null && sed -i 's/^SQLALCHEMY_DATABASE_URL = "sqlite:\/\//\# &/' /opt/marzban/.env && sudo sed -i '/SQLALCHEMY_DATABASE_URL = "sqlite:\/\//a\
-SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:80MinE84@127.0.0.1/marzban"\
-MYSQL_ROOT_PASSWORD = 80MinE84' /opt/marzban/.env
+                  marzban:
+                    image: gozargah/marzban:0.4.9
+                    restart: always
+                    env_file: .env
+                    network_mode: host
+                    volumes:
+                      - /var/lib/marzban:/var/lib/marzban
+                    depends_on:
+                      - mysql
+                
+                  mysql:
+                    image: mysql:latest
+                    restart: always
+                    env_file: .env
+                    network_mode: host
+                    environment:
+                      MYSQL_DATABASE: marzban
+                    volumes:
+                      - /var/lib/marzban/mysql:/var/lib/mysql" | tee /opt/marzban/docker-compose.yml > /dev/null && \
+                sed -i 's/^SQLALCHEMY_DATABASE_URL = "sqlite:\/\//\# &/' /opt/marzban/.env && \
+                sed -i '/SQLALCHEMY_DATABASE_URL = "sqlite:\/\//a\
+                SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:80MinE84@127.0.0.1/marzban"\
+                MYSQL_ROOT_PASSWORD = 80MinE84' /opt/marzban/.env && \
                 docker restart marzban-marzban-1 && \
                 #cd /var/lib/marzban/ && \
                 #rm -rf db.sqlite3 && \
