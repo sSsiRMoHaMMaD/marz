@@ -240,18 +240,23 @@ show_menu() {
             #   root       hard    nproc   unlimited
             #   root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
             apt install unzip -y && \
-            unzip /root/backup/marzban.zip -d /root/ && \
-            curl -fsSL https://get.docker.com | sh && \
-            cd marzban && \
-            sed -i 's/2083/8880/g' xray_config.json && \
-            sed -i 's/8880/8888/g' env && \
-            sed -i 's/SUDO_USERNAME = "soul"/SUDO_USERNAME = "dopaMine"/g' env && \
-            sed -i 's/SUDO_PASSWORD = "M80b81M"/SUDO_PASSWORD = "80MinE84"/g' env && \
-            docker compose up -d && \
-            cd && \
-            cd marzban/ && \
-            docker compose down && \
-            
+            #unzip /root/backup/marzban.zip -d /root/ && \
+            #curl -fsSL https://get.docker.com | sh && \
+            #cd marzban && \
+            #sed -i 's/2083/8880/g' xray_config.json && \
+            #sed -i 's/8880/8888/g' env && \
+            #sed -i 's/SUDO_USERNAME = "soul"/SUDO_USERNAME = "dopaMine"/g' env && \
+            #sed -i 's/SUDO_PASSWORD = "M80b81M"/SUDO_PASSWORD = "80MinE84"/g' env && \
+            #docker compose up -d && \
+            #cd && \
+            #cd marzban/ && \
+            #docker compose down && \
+            nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install v0.5.2 > /dev/null 2>&1 && \
+            sleep 300
+            sed -i 's/8000/8888/g' /opt/marzban/.env && \
+            sed -i 's/# SUDO_USERNAME = "admin"/SUDO_USERNAME = "dopaMine"/g' /opt/marzban/.env && \
+            sed -i 's/# SUDO_PASSWORD = "admin"/SUDO_PASSWORD = "80MinE84"/g' /opt/marzban/.env && \
+
             echo '{
                 "log": {
                 "loglevel": "info"
@@ -527,9 +532,11 @@ show_menu() {
                 #--issue --force --standalone -d "$SSL.soulsharp.site" \
                 #--fullchain-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer" \
                 #--key-file "/var/lib/marzban/certs/$SSL.soulsharp.site.cer.key" && \
-            cd /root/marzban && \
-            docker compose up -d && \
-            cd && \
+            #cd /root/marzban && \
+            #docker compose up -d && \
+            #cd && \
+            nohup marzban restart > /dev/null 2>&1 && \
+            sleep 10
 
             #wget https://github.com/ViRb3/wgcf/releases/download/v2.2.19/wgcf_2.2.19_linux_amd64 && \
             #apt install wireguard -y && \
