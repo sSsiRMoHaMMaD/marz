@@ -112,6 +112,8 @@ show_menu() {
                 MYSQL_ROOT_PASSWORD = 80MinE84' /opt/marzban/.env && \
                 nohup marzban restart > /dev/null 2>&1 && \
                 sleep 10
+                docker exec -i marzban-mysql-1 mysql -u root -p"80MinE84" marzban < "/root/marzban.sql" && \
+                nohup marzban restart > /dev/null 2>&1 && \
                 #cd /var/lib/marzban/ && \
                 #rm -rf db.sqlite3 && \
                 #mv /root/backup/$SERVER/db.sqlite3 /var/lib/marzban/db.sqlite3 && \
