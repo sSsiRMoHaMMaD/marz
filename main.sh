@@ -120,7 +120,7 @@ show_menu() {
                 #cd marzban/ && \
                 #docker compose down && \
                 #rm -rf xray_config.json && \
-                #mv /root/backup/$SERVER/xray_config.json /root/marzban/xray_config.json && \
+                #mv /root/backup/$SERVER/xray_config.json /var/lib/marzban/xray_config.json && \
                 #docker compose up -d && \
                 #cd && \
 
@@ -504,7 +504,7 @@ show_menu() {
                     }
                 ]
                 }
-            }' > /root/marzban/xray_config.json && \
+            }' > /var/lib/marzban/xray_config.json && \
 
             read -p "Enter the Domain: " DOMAIN
             read -p "Enter the VTH: " PORT_VTH
@@ -515,12 +515,12 @@ show_menu() {
             #read -p "Enter the SSL: " SSL
             #read -p "Enter the license key: " LICENSE
 
-            sed -i "s/\$DOMAIN/$DOMAIN/g" /root/marzban/xray_config.json && \
-            sed -i "s/\$PORT_VTH/$PORT_VTH/g" /root/marzban/xray_config.json && \
-            sed -i "s/\$PORT_VT/$PORT_VT/g" /root/marzban/xray_config.json && \
-            sed -i "s/\$PORT_VWH/$PORT_VWH/g" /root/marzban/xray_config.json && \
-            sed -i "s/\$PORT_SH/$PORT_SH/g" /root/marzban/xray_config.json && \
-            sed -i "s/\$PORT_THT/$PORT_THT/g" /root/marzban/xray_config.json && \
+            sed -i "s/\$DOMAIN/$DOMAIN/g" /var/lib/marzban/xray_config.json && \
+            sed -i "s/\$PORT_VTH/$PORT_VTH/g" /var/lib/marzban/xray_config.json && \
+            sed -i "s/\$PORT_VT/$PORT_VT/g" /var/lib/marzban/xray_config.json && \
+            sed -i "s/\$PORT_VWH/$PORT_VWH/g" /var/lib/marzban/xray_config.json && \
+            sed -i "s/\$PORT_SH/$PORT_SH/g" /var/lib/marzban/xray_config.json && \
+            sed -i "s/\$PORT_THT/$PORT_THT/g" /var/lib/marzban/xray_config.json && \
 
             #apt install socat -y && \
             #apt install cron -y && \
