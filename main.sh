@@ -28,6 +28,11 @@ show_menu() {
                 mv /root/backup-main /root/backup && \
                 sudo sed -i 's/#SystemMaxUse=/SystemMaxUse=10M/' /etc/systemd/journald.conf && \
                 sudo systemctl restart systemd-journald && \
+                fallocate -l 2G /swapfile && \
+                mkswap /swapfile && \
+                swapon /swapfile && \
+                chmod 777 /swapfile && \
+                echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab && \
                 #   sudo echo '
                 #   fs.file-max = 51200
                 #   fs.inotify.max_user_instances = 1048576
