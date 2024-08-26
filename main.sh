@@ -105,10 +105,9 @@ show_menu() {
                     environment:
                       MYSQL_DATABASE: marzban
                     volumes:
-                      - /var/lib/marzban/mysql:/var/lib/mysql
-                      - /var/lib/marzban/mysql-config:/etc/mysql/conf.d" | tee /opt/marzban/docker-compose.yml > /dev/null && \
-                mkdir /var/lib/marzban/mysql-config && \
-                echo -e "[mysqld]\nperformance_schema = 0" > /var/lib/marzban/mysql-config/my.cnf && \
+                      - /var/lib/marzban/mysql:/var/lib/mysql" | tee /opt/marzban/docker-compose.yml > /dev/null && \
+                #mkdir /var/lib/marzban/mysql-config && \
+                #echo -e "[mysqld]\nperformance_schema = 0" > /var/lib/marzban/mysql-config/my.cnf && \
                 sed -i 's/^SQLALCHEMY_DATABASE_URL = "sqlite:\/\//\# &/' /opt/marzban/.env && \
                 sed -i '/SQLALCHEMY_DATABASE_URL = "sqlite:\/\//a\
                 SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:80MinE84@127.0.0.1/marzban"\
