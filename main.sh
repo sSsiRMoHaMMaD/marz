@@ -79,7 +79,7 @@ show_menu() {
                 #curl -fsSL https://get.docker.com | sh && \
                 #cd marzban && \
                 #sed -i 's/2083/8880/g' xray_config.json && \
-                nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install v0.5.2 > /dev/null 2>&1 && \
+                nohup sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install --version 0.7.0 > /dev/null 2>&1 && \
                 sleep 300
                 sed -i 's/8000/8888/g' /opt/marzban/.env && \
                 sed -i 's/# SUDO_USERNAME = "admin"/SUDO_USERNAME = "dopaMine"/g' /opt/marzban/.env && \
@@ -96,18 +96,21 @@ show_menu() {
                       - /var/lib/marzban:/var/lib/marzban
                     depends_on:
                       - mysql
-                
+
                   mysql:
                     image: mysql:latest
                     restart: always
                     env_file: .env
                     network_mode: host
+                    command:
+                     --disable-log-bin
                     environment:
                       MYSQL_DATABASE: marzban
                     volumes:
-                      - /var/lib/marzban/mysql:/var/lib/mysql" | tee /opt/marzban/docker-compose.yml > /dev/null && \
-                #mkdir /var/lib/marzban/mysql-config && \
-                #echo -e "[mysqld]\nperformance_schema = 0" > /var/lib/marzban/mysql-config/my.cnf && \
+                      - /var/lib/marzban/mysql:/var/lib/mysql
+                      - /var/lib/marzban/mysql-config:/etc/mysql/conf.d" | tee /opt/marzban/docker-compose.yml > /dev/null && \
+                mkdir /var/lib/marzban/mysql-config && \
+                echo -e "[mysqld]\nperformance_schema = 0" > /var/lib/marzban/mysql-config/my.cnf && \
                 sed -i 's/^SQLALCHEMY_DATABASE_URL = "sqlite:\/\//\# &/' /opt/marzban/.env && \
                 sed -i '/SQLALCHEMY_DATABASE_URL = "sqlite:\/\//a\
                 SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:80MinE84@127.0.0.1/marzban"\
@@ -126,27 +129,27 @@ show_menu() {
                 #docker compose up -d && \
                 #cd && \
 
-                wget https://github.com/wangyu-/udp2raw/releases/download/20230206.0/udp2raw_binaries.tar.gz && \
-                tar -zxvf udp2raw_binaries.tar.gz && \
-                mv udp2raw_amd64 /usr/local/bin/udp2raw && chmod +x /usr/local/bin/udp2raw && \
-                echo '[Unit]
-                Description=udp2raw service
-                ConditionFileIsExecutable=/usr/local/bin/udp2raw
-                ConditionPathExists=/etc/udp2raw.conf
-                After=network.target
-                [Service]
-                Type=simple
-                User=root
-                Group=root
-                #LimitNOFILE=32768
-                PIDFile=/run/udp2raw.pid
-                AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
-                ExecStart=/usr/local/bin/udp2raw --conf-file /etc/udp2raw.conf
-                Restart=on-failure
-                [Install]
-                WantedBy=multi-user.target' > /etc/systemd/system/udp2raw.service && \
-                systemctl enable udp2raw.service && \
-                systemctl start udp2raw.service && \
+                # wget https://github.com/wangyu-/udp2raw/releases/download/20230206.0/udp2raw_binaries.tar.gz && \
+                # tar -zxvf udp2raw_binaries.tar.gz && \
+                # mv udp2raw_amd64 /usr/local/bin/udp2raw && chmod +x /usr/local/bin/udp2raw && \
+                # echo '[Unit]
+                # Description=udp2raw service
+                # ConditionFileIsExecutable=/usr/local/bin/udp2raw
+                # ConditionPathExists=/etc/udp2raw.conf
+                # After=network.target
+                # [Service]
+                # Type=simple
+                # User=root
+                # Group=root
+                # #LimitNOFILE=32768
+                # PIDFile=/run/udp2raw.pid
+                # AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
+                # ExecStart=/usr/local/bin/udp2raw --conf-file /etc/udp2raw.conf
+                # Restart=on-failure
+                # [Install]
+                # WantedBy=multi-user.target' > /etc/systemd/system/udp2raw.service && \
+                # systemctl enable udp2raw.service && \
+                # systemctl start udp2raw.service && \
 
                 
                 read -p "Enter the server name: " S_NAME
@@ -154,8 +157,8 @@ show_menu() {
                 sudo apt install wireguard-dkms wireguard-tools resolvconf -y
                 unzip /root/backup/$S_NAME/wireguard.zip -d /etc/ && \
                 sed -i 's#6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=#03DUNTJSA2TJ6uu7NrVSQuTG3+qMJaWgZI8XXkYCrmc=#g' /etc/wireguard/wg0.conf
-                mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
-                chmod +x /root/udp2raw.sh && \
+                # mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
+                # chmod +x /root/udp2raw.sh && \
                 chmod 600 /etc/wireguard/privatekey && \
                 sudo systemctl enable --now wg-quick@wg0 && \
 
