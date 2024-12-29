@@ -88,7 +88,7 @@ show_menu() {
                 unzip /root/backup/$SERVER/certs.zip -d /var/lib/marzban/ && \
                 echo "services:
                   marzban:
-                    image: gozargah/marzban:latest
+                    image: gozargah/marzban:v0.5.2
                     restart: always
                     env_file: .env
                     network_mode: host
