@@ -16,7 +16,7 @@ show_menu() {
 
                 # Update the root password and set DNS
                 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
-                ufw disable && \
+                # ufw disable && \
                 sed -i '16s/^/DNS=1.1.1.1 8.8.8.8\n/' /etc/systemd/resolved.conf && \
                 echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\nnameserver 1.1.1.1' > /etc/resolv.conf && \
                 service systemd-resolved restart && \
