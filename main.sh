@@ -154,7 +154,7 @@ show_menu() {
                 
                 read -p "Enter the server name: " S_NAME
             
-                sudo apt install wireguard-dkms wireguard-tools resolvconf -y
+                sudo apt install wireguard wireguard-tools resolvconf -y
                 unzip /root/backup/$S_NAME/wireguard.zip -d /etc/ && \
                 sed -i 's#6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=#03DUNTJSA2TJ6uu7NrVSQuTG3+qMJaWgZI8XXkYCrmc=#g' /etc/wireguard/wg0.conf
                 # mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
