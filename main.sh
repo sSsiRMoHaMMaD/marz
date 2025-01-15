@@ -17,9 +17,9 @@ show_menu() {
                 # Update the root password and set DNS
                 echo 'root:sOn3lQ#bS@ls!7&m' | sudo chpasswd && \
                 # ufw disable && \
-                sed -i '16s/^/DNS=1.1.1.1 8.8.8.8\n/' /etc/systemd/resolved.conf && \
-                echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\nnameserver 1.1.1.1' > /etc/resolv.conf && \
-                service systemd-resolved restart && \
+                #sed -i '16s/^/DNS=1.1.1.1 8.8.8.8\n/' /etc/systemd/resolved.conf && \
+                #echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\nnameserver 1.1.1.1' > /etc/resolv.conf && \
+                #service systemd-resolved restart && \
                 apt update && \
                 apt install unzip -y && \
                 apt install zip && \
@@ -154,7 +154,7 @@ show_menu() {
                 
                 read -p "Enter the server name: " S_NAME
             
-                sudo apt install wireguard wireguard-tools resolvconf -y
+                sudo apt install wireguard wireguard-tools -y
                 unzip /root/backup/$S_NAME/wireguard.zip -d /etc/ && \
                 sed -i 's#6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=#03DUNTJSA2TJ6uu7NrVSQuTG3+qMJaWgZI8XXkYCrmc=#g' /etc/wireguard/wg0.conf
                 # mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
@@ -165,14 +165,14 @@ show_menu() {
                 #Get license key from the user
 
                 
-                systemctl disable resolvconf.service && /
-                systemctl disable resolvconf && /
-                systemctl disable resolvconf-pull-resolved.path && /
-                systemctl disable resolvconf-pull-resolved.service && /
-                rm -rf /etc/resolv.conf && \
-                touch /etc/resolv.conf && \
-                echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\nnameserver 1.1.1.1' > /etc/resolv.conf && \
-                chattr +i -f /etc/resolv.conf && \
+                #systemctl disable resolvconf.service && /
+                #systemctl disable resolvconf && /
+                #systemctl disable resolvconf-pull-resolved.path && /
+                #systemctl disable resolvconf-pull-resolved.service && /
+                #rm -rf /etc/resolv.conf && \
+                #touch /etc/resolv.conf && \
+                #echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4\nnameserver 1.1.1.1' > /etc/resolv.conf && \
+                #chattr +i -f /etc/resolv.conf && \
 
                 #   unzip /root/backup/cache.zip -d /root/ && \
                 #   chmod +x /root/cache.sh && \
