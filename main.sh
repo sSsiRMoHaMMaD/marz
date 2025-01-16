@@ -74,7 +74,7 @@ show_menu() {
                 #   root       soft    nofile  unlimited
                 #   root       hard    nproc   unlimited
                 #   root       soft    nproc   unlimited' > /etc/security/limits.d/99-unlimited.conf && \
-                apt install unzip -y && \
+                #apt install unzip -y && \
                 #unzip /root/backup/marzban.zip -d /root/ && \
                 #curl -fsSL https://get.docker.com | sh && \
                 #cd marzban && \
@@ -154,13 +154,13 @@ show_menu() {
                 
                 read -p "Enter the server name: " S_NAME
             
-                sudo apt install wireguard wireguard-tools -y
+                sudo apt install wireguard -y
                 unzip /root/backup/$S_NAME/wireguard.zip -d /etc/ && \
-                sed -i 's#6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=#03DUNTJSA2TJ6uu7NrVSQuTG3+qMJaWgZI8XXkYCrmc=#g' /etc/wireguard/wg0.conf
+                #sed -i 's#6sNvmAZflqio1eyOL1LcQctVP/w5R8hmEbC60EaysEU=#03DUNTJSA2TJ6uu7NrVSQuTG3+qMJaWgZI8XXkYCrmc=#g' /etc/wireguard/wg0.conf
                 # mv /root/backup/udp2raw.sh /root/udp2raw.sh && \
                 # chmod +x /root/udp2raw.sh && \
                 chmod 600 /etc/wireguard/privatekey && \
-                sudo systemctl enable --now wg-quick@wg0 && \
+                #sudo systemctl enable --now wg-quick@wg0 && \
 
                 #Get license key from the user
 
